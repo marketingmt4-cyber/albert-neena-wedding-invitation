@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#31483d">
+  <title>Albert & Neena | Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --ivory:#fbf8ee; --gold:#c9a86a; --gold-pale:#ecdcba; --sage:#718373; --ink:#272c29; --glass:rgba(255,252,244,.16); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--ivory); color:var(--ink); font-family:Montserrat, sans-serif; overflow-x:hidden; }
+    body.invitation-open { overflow-x:hidden; }
+    h1,h2,h3,p { margin:0; } h1,h2 { font-family:'Playfair Display',serif; }
+    .screen { min-height:100svh; position:relative; display:grid; place-items:center; isolation:isolate; padding:72px 24px; overflow:hidden; }
+    .photo-bg::before { content:""; position:absolute; inset:-4%; z-index:-2; background:var(--bg) center/cover no-repeat; transform:scale(1.06); }
+    .photo-bg::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(115deg,rgba(23,32,28,.76),rgba(45,52,42,.32) 60%,rgba(255,249,237,.2)); }
+    .eyebrow { color:var(--gold-pale); text-transform:uppercase; letter-spacing:.22em; font-size:.68rem; font-weight:600; }
+    .script { font-family:'Great Vibes',cursive; color:var(--gold-pale); font-size:clamp(3rem,13vw,7.8rem); line-height:.88; font-weight:400; }
+    .section-heading { color:#fff9eb; font-size:clamp(2rem,6vw,4.2rem); font-weight:500; line-height:1.1; }
+    .arrow { position:absolute; bottom:26px; text-decoration:none; color:#fff; display:flex; flex-direction:column; align-items:center; gap:8px; font-size:.57rem; letter-spacing:.18em; text-transform:uppercase; animation:bob 2.3s ease-in-out infinite; }
+    .arrow::after { content:'â†“'; font-size:1.55rem; font-family:serif; }
+    @keyframes bob { 50% { transform:translateY(7px); } }
+
+    /* Envelope */
+    #envelope-screen { position:fixed; z-index:20; inset:0; background:radial-gradient(circle at 50% 25%,#fffdf7 0,#f2e7d1 56%,#d7c3a1 160%); transition:opacity .9s ease,visibility .9s; padding:20px; }
+    #envelope-screen.open { opacity:0; visibility:hidden; pointer-events:none; }
+    .envelope-wrap { width:min(88vw,500px); aspect-ratio:1.35; position:relative; cursor:pointer; filter:drop-shadow(0 22px 28px rgba(71,51,26,.25)); }
+    .envelope { position:absolute; inset:0; background:#f8edd8; border-radius:4px; overflow:hidden; }
+    .envelope::before,.envelope::after { content:""; position:absolute; width:0; height:0; border-style:solid; z-index:3; }
+    .envelope::before { left:0; bottom:0; border-width:0 0 175px 250px; border-color:transparent transparent #ead8b8 transparent; }
+    .envelope::after { right:0; bottom:0; border-width:175px 250px 0 0; border-color:#e2cba7 transparent transparent transparent; }
+    .letter { position:absolute; inset:9% 8% 0; display:grid; place-items:center; text-align:center; background:#fffdf7; box-shadow:0 0 12px rgba(70,48,25,.14); color:#455448; transition:transform .85s .18s ease; }
+    .letter .script { color:#627766; font-size:clamp(2.2rem,9vw,4rem); }
+    .flap { position:absolute; left:0; top:0; width:0; height:0; border-style:solid; border-width:150px 250px 0; border-color:#f3e4ca transparent transparent; transform-origin:top; z-index:5; transition:transform .8s ease; }
+    .seal { position:absolute; z-index:6; left:50%; top:56%; translate:-50% -50%; width:70px; height:70px; border-radius:50%; display:grid; place-items:center; color:#fff3d6; background:radial-gradient(circle at 33% 28%,#d5b26d,#a77b36 60%,#7b5420); border:2px solid #e6c887; box-shadow:0 4px 5px #8a652b80; font-family:'Playfair Display'; font-size:1.25rem; transition:opacity .25s; }
+    .envelope-wrap.open .flap { transform:rotateX(180deg); z-index:1; } .envelope-wrap.open .letter { transform:translateY(-32%); } .envelope-wrap.open .seal { opacity:0; }
+    .tap { position:absolute; width:100%; top:calc(100% + 28px); color:#725d3d; text-align:center; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; animation:pulse 1.8s infinite; }
+    @keyframes pulse { 50% { opacity:.45; } }
+
+    .hero { text-align:center; align-content:center; } .hero .eyebrow { margin-bottom:23px; } .hero h1 { margin-top:18px; font-size:clamp(1.2rem,3vw,1.8rem); font-style:italic; color:#fdf6e7; font-weight:500; } .hero .wishing { max-width:350px; margin:31px auto 0; color:#fffaf0; font-family:'Playfair Display'; font-size:1.02rem; line-height:1.8; }
+    .promise { min-height:90svh; text-align:center; } .promise .content { max-width:650px; padding:36px 20px; } .promise .quote { margin-top:24px; color:#fff8e9; font-family:'Playfair Display'; font-size:clamp(2rem,6.5vw,4.5rem); line-height:1.24; font-style:italic; } .promise .quote em { color:var(--gold-pale); font-style:normal; }
+    .date-section { min-height:85svh; text-align:center; background:linear-gradient(140deg,#e9e2ce,#fbfaf4 50%,#dce5d9); }
+    .date-section::before { content:'âœ¦'; position:absolute; color:#c3a36c; opacity:.32; font-size:17rem; left:-70px; top:-85px; }
+    .date-card { position:relative; width:min(100%,510px); padding:48px 24px; border:1px solid rgba(160,131,81,.28); border-radius:22px; background:rgba(255,255,250,.56); box-shadow:0 18px 55px #64715a20; backdrop-filter:blur(9px); }
+    .date-card h2 { color:#394b3f; font-size:clamp(2rem,7vw,3.4rem); font-weight:500; } .date-card p { margin:12px auto 25px; color:#5e6c5d; font-size:.8rem; line-height:1.7; max-width:280px; }
+    .scratch-zone { position:relative; height:145px; max-width:365px; margin:auto; border-radius:12px; overflow:hidden; box-shadow:inset 0 0 0 1px #b99c64; }
+    .date-hidden { height:100%; display:grid; place-content:center; background:#fffdf6; color:#3a4c40; } .date-hidden strong { font:500 clamp(1.6rem,6vw,2.6rem) 'Playfair Display'; } .date-hidden span { margin-top:8px; font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; }
+    #scratch { position:absolute; inset:0; width:100%; height:100%; touch-action:none; }
+    .countdown { min-height:80svh; text-align:center; background:linear-gradient(135deg,#31483d,#1d2923); } .countdown::before { content:''; position:absolute; inset:0; z-index:-1; opacity:.17; background:radial-gradient(circle at 10% 20%,#e5c485 0 2px,transparent 3px) 0 0/90px 90px; }
+    .countdown .section-heading { margin:12px auto 38px; } .timer { display:grid; grid-template-columns:repeat(2,minmax(110px,155px)); gap:13px; justify-content:center; }
+    .time-card { padding:22px 10px; color:#fff8e9; border:1px solid rgba(255,239,194,.35); border-radius:16px; background:var(--glass); backdrop-filter:blur(12px); box-shadow:0 10px 25px #09120d2e; } .time-card b { display:block; font:500 clamp(2.35rem,9vw,4rem) 'Playfair Display'; color:#f5d99f; } .time-card span { display:block; margin-top:7px; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; }
+    .gallery { min-height:auto; padding:88px 0; background:#f5f1e6; display:block; } .gallery .intro { padding:0 24px 34px; text-align:center; } .gallery h2 { color:#3e5044; font-size:clamp(2.2rem,7vw,3.8rem); font-weight:500; } .gallery p { margin-top:10px; color:#758277; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; }
+    .gallery-track { display:flex; gap:17px; overflow-x:auto; padding:10px 24px 23px; scroll-snap-type:x mandatory; scrollbar-width:none; } .gallery-track::-webkit-scrollbar { display:none; } .gallery-item { flex:0 0 min(72vw,330px); aspect-ratio:.72; overflow:hidden; scroll-snap-align:center; border-radius:5px 5px 65px 5px; box-shadow:0 15px 27px #3d4a3d28; } .gallery-item:nth-child(even) { border-radius:65px 5px 5px; transform:translateY(26px); } .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform .65s ease; } .gallery-item:hover img { transform:scale(1.08); }
+    .details { text-align:center; --bg:url('couple-4.jpeg'); } .details .content { padding:35px 24px; width:min(100%,650px); } .details .section-heading { margin:14px auto 38px; } .venue-card { display:grid; gap:1px; padding:5px; border-radius:18px; background:rgba(255,248,229,.42); border:1px solid rgba(252,233,190,.43); backdrop-filter:blur(10px); } .venue-row { padding:19px; color:#fff9ed; } .venue-row+ .venue-row { border-top:1px solid rgba(255,245,220,.28); } .venue-row small { display:block; color:#e9d09b; margin-bottom:5px; font-size:.57rem; letter-spacing:.19em; text-transform:uppercase; } .venue-row b { font:500 1.17rem 'Playfair Display'; }
+    .closing { min-height:100svh; --bg:url('couple-2.jpeg'); text-align:center; } .closing::after { background:linear-gradient(180deg,rgba(20,27,23,.28),rgba(20,27,23,.72)); } .closing .content { align-self:end; padding-bottom:30px; } .closing h2 { margin:16px 0 12px; color:#fff9eb; font-size:clamp(2.2rem,8vw,4.7rem); font-weight:500; } .closing p { max-width:390px; margin:auto; color:#fffaf1; line-height:1.8; font-family:'Playfair Display'; font-size:1.05rem; } .closing .script { margin-top:32px; font-size:clamp(3.2rem,12vw,5.5rem); } .share-link { display:inline-flex; align-items:center; justify-content:center; margin-top:26px; min-height:44px; padding:0 20px; border:1px solid rgba(255,245,217,.68); border-radius:999px; color:#fff9eb; background:rgba(255,255,255,.1); backdrop-filter:blur(10px); text-decoration:none; font-size:.65rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; transition:background .25s ease,transform .25s ease; } .share-link:hover { background:rgba(255,255,255,.2); transform:translateY(-2px); }
+    .music { position:fixed; right:16px; bottom:16px; z-index:10; border:1px solid rgba(255,245,217,.45); border-radius:100%; width:44px; height:44px; color:#fff8e8; background:#435848cc; backdrop-filter:blur(9px); cursor:pointer; display:none; font-size:1.1rem; } .music.show { display:block; }
+    @media (min-width:700px) { .timer { grid-template-columns:repeat(4,145px); } .screen { padding:80px 50px; } .gallery-item { flex-basis:270px; } }
+  </style>
+</head>
+<body>
+  <section id="envelope-screen" class="screen" aria-label="Open invitation">
+    <div class="envelope-wrap" id="openInvitation" role="button" tabindex="0" aria-label="Tap to open the invitation">
+      <div class="envelope"><div class="letter"><span class="eyebrow" style="color:#7b8b7d">A wedding invitation</span><span class="script">Albert &amp; Neena</span></div><div class="flap"></div><div class="seal">A&nbsp;N</div></div>
+      <span class="tap">Tap to Open</span>
+    </div>
+  </section>
+
+  <audio id="weddingMusic" loop preload="auto"><source src="wedding-melody.mpeg" type="audio/mpeg"></audio>
+  <button id="musicToggle" class="music" aria-label="Pause background music">â™«</button>
+
+  <main>
+    <section class="screen photo-bg hero" style="--bg:url('couple-1.jpeg')" id="home">
+      <div><p class="eyebrow">Together with their families</p><p class="script">Albert <span style="font-family:'Playfair Display';font-size:.45em">&amp;</span> Neena</p><h1>are getting married</h1><p class="wishing">With hearts full of gratitude, we invite you to share in the joy of our new beginning.</p></div><a class="arrow" href="#promise">Scroll to discover</a>
+    </section>
+    <section class="screen photo-bg promise" style="--bg:url('couple-3.jpeg')" id="promise"><div class="content"><p class="eyebrow">Our story, always</p><p class="quote">â€œPromise by the sea, we found our <em>forever</em> in the quietest smile.â€</p></div><a class="arrow" href="#save-date">Our date</a></section>
+    <section class="screen date-section" id="save-date"><div class="date-card"><p class="eyebrow" style="color:#9d7e45">Mark your calendar</p><h2>Save the Date</h2><p>Gently scratch the golden card to uncover the moment we have been waiting for.</p><div class="scratch-zone"><div class="date-hidden"><strong>31 May 2031</strong><span>Saturday Â· 11:00 AM</span></div><canvas id="scratch" aria-label="Scratch to reveal the date"></canvas></div></div><a class="arrow" style="color:#536657" href="#countdown">The countdown</a></section>
+    <section class="screen countdown" id="countdown"><div><p class="eyebrow">Counting every beautiful moment</p><h2 class="section-heading">The Celebration<br>Begins In</h2><div class="timer" aria-live="polite"><div class="time-card"><b id="days">00</b><span>Days</span></div><div class="time-card"><b id="hours">00</b><span>Hours</span></div><div class="time-card"><b id="minutes">00</b><span>Minutes</span></div><div class="time-card"><b id="seconds">00</b><span>Seconds</span></div></div></div><a class="arrow" href="#gallery">Our little moments</a></section>
+    <section class="gallery" id="gallery"><div class="intro"><p>Snapshots of us</p><h2>Our favourite moments</h2></div><div class="gallery-track"><figure class="gallery-item"><img src="couple-1.jpeg" alt="Albert and Neena smiling together"></figure><figure class="gallery-item"><img src="couple-3.jpeg" alt="Albert and Neena sharing a playful moment"></figure><figure class="gallery-item"><img src="couple-4.jpeg" alt="Albert and Neena embracing"></figure><figure class="gallery-item"><img src="couple-2.jpeg" alt="Albert and Neena together"></figure></div></section>
+    <section class="screen photo-bg details" id="details"><div class="content"><p class="eyebrow">Where the next chapter begins</p><h2 class="section-heading">Join us in celebration</h2><div class="venue-card"><div class="venue-row"><small>Venue</small><b>Little Flower Church, Vaikom</b></div><div class="venue-row"><small>Day</small><b>Saturday Â· 31 May</b></div><div class="venue-row"><small>Time</small><b>11:00 AM</b></div></div></div><a class="arrow" href="#with-love">With love</a></section>
+    <section class="screen photo-bg closing" id="with-love"><div class="content"><p class="eyebrow">Your presence will make our day complete</p><h2>Come celebrate<br>love with us</h2><p>We warmly invite you to be part of the laughter, blessings, and beautiful memories as we begin our forever.</p><p class="script">Albert &amp; Neena</p><a class="share-link" id="shareInvitation" href="#home">Share this invitation</a></div></section>
+  </main>
+  <script>
+    const envelope = document.getElementById('envelope-screen'), opener = document.getElementById('openInvitation'), music = document.getElementById('weddingMusic'), musicToggle = document.getElementById('musicToggle');
+    let opened = false;
+    function openInvitation(){ if(opened) return; opened=true; opener.classList.add('open'); music.play().catch(()=>{}); musicToggle.classList.add('show'); setTimeout(()=>envelope.classList.add('open'),850); }
+    opener.addEventListener('click',openInvitation); opener.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInvitation();}});
+    musicToggle.addEventListener('click',()=>{if(music.paused){music.play();musicToggle.textContent='â™«';musicToggle.setAttribute('aria-label','Pause background music');}else{music.pause();musicToggle.textContent='â™ª';musicToggle.setAttribute('aria-label','Play background music');}});
+    document.getElementById('shareInvitation').addEventListener('click', async event => {
+      event.preventDefault();
+      const shareData = { title: 'Albert & Neena | Wedding Invitation', text: 'You are warmly invited to celebrate Albert & Neena.', url: window.location.href.split('#')[0] };
+      try {
+        if (navigator.share) await navigator.share(shareData);
+        else if (navigator.clipboard) { await navigator.clipboard.writeText(shareData.url); event.currentTarget.textContent = 'Link copied'; setTimeout(() => event.currentTarget.textContent = 'Share this invitation', 1800); }
+        else window.location.href = shareData.url;
+      } catch (error) { if (error.name !== 'AbortError') window.location.href = shareData.url; }
+    });
+    const target = new Date('2031-05-31T11:00:00+05:30').getTime();
+    function updateTimer(){let d=Math.max(0,target-Date.now()), parts=[Math.floor(d/864e5),Math.floor(d/36e5)%24,Math.floor(d/6e4)%60,Math.floor(d/1000)%60]; ['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(parts[i]).padStart(2,'0'));} updateTimer(); setInterval(updateTimer,1000);
+    const canvas=document.getElementById('scratch'), ctx=canvas.getContext('2d'); let drawing=false, revealed=false;
+    function setupCanvas(){const r=canvas.getBoundingClientRect(), scale=devicePixelRatio||1; canvas.width=r.width*scale;canvas.height=r.height*scale;ctx.scale(scale,scale);const g=ctx.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,'#b38a49');g.addColorStop(.45,'#e5c986');g.addColorStop(1,'#90703d');ctx.fillStyle=g;ctx.fillRect(0,0,r.width,r.height);ctx.fillStyle='#fff9e9';ctx.textAlign='center';ctx.font='600 12px Montserrat';ctx.letterSpacing='2px';ctx.fillText('SCRATCH TO REVEAL',r.width/2,r.height/2+4);}
+    function point(e){const r=canvas.getBoundingClientRect(), p=e.touches?e.touches[0]:e;return{x:p.clientX-r.left,y:p.clientY-r.top};}
+    function scratch(e){if(!drawing||revealed)return;e.preventDefault();const p=point(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(p.x,p.y,25,0,Math.PI*2);ctx.fill();}
+    function checkReveal(){const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let clear=0;for(let i=3;i<data.length;i+=120)if(data[i]===0)clear++;if(clear/(data.length/120)>.42){revealed=true;canvas.style.transition='opacity .7s';canvas.style.opacity='0';setTimeout(()=>canvas.style.display='none',720);}}
+    ['pointerdown','pointermove','pointerup','pointerleave'].forEach(type=>canvas.addEventListener(type,e=>{if(type==='pointerdown'){drawing=true;canvas.setPointerCapture(e.pointerId);}else if(type==='pointermove')scratch(e);else{drawing=false;checkReveal();}}));
+    setupCanvas(); window.addEventListener('resize',()=>{if(!revealed)setupCanvas();});
+  </script>
+</body>
+</html>
